@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>PETLOG - 미니홈피</title>
+    <style>
+        body { background-color: #a3a3a3; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: "굴림", sans-serif; margin:0; }
+        .border { background-color: #bee3f8; padding: 10px; border-radius: 15px; border: 1px solid #777; }
+        .container { background-color: white; width: 700px; height: 450px; border-radius: 10px; border: 1px solid #999; display: flex; padding: 15px; position: relative; }
+        .left { width: 30%; border-right: 1px dashed #ccc; padding-right: 10px; text-align: center; }
+        .right { width: 70%; padding-left: 15px; overflow-y: auto; }
+        .profile-img { width: 100%; border: 1px solid #ddd; margin-top: 10px; border-radius: 5px; }
+        .today { font-size: 10px; color: red; font-weight: bold; margin-bottom: 5px; }
+        .title { color: #2e8b57; font-weight: bold; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 15px; display: flex; justify-content: space-between; }
+        .gallery { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .photo { border: 1px solid #eee; padding: 5px; text-align: center; background: #fff; }
+        .photo img { width: 100%; height: 120px; object-fit: cover; background: #f0f0f0; border-radius: 3px; }
+        .voice-section { margin-top: 20px; padding: 15px; background: #f9f9f9; border: 1px solid #eee; border-radius: 5px; }
+        button { background: #2e8b57; color: white; border: none; padding: 8px 15px; cursor: pointer; border-radius: 3px; font-family: "굴림"; }
+        .menu-tab { position: absolute; right: -42px; top: 20px; display: flex; flex-direction: column; gap: 5px; }
+        .tab { background: #2e8b57; color: white; padding: 10px 8px; border-radius: 0 5px 5px 0; font-size: 11px; text-decoration: none; border: 1px solid #777; border-left: none; }
+    </style>
+</head>
+<body>
+    <div class="border">
+        <div class="container">
+            <div class="left">
+                <div class="today">TODAY 48 | TOTAL 1520</div>
+                <img src="https://via.placeholder.com/150" class="profile-img">
+                <p style="font-size: 11px; margin-top: 15px; color: #666;">내 마음의 펫로그...★</p>
+                <div style="font-weight: bold; margin-top: 30px; font-size: 14px;">강지완(🐾)</div>
+                <p style="font-size: 10px; color: #999; margin-top: 5px;">#여행 #기록 #감성</p>
+            </div>
+            <div class="right">
+                <div class="title">
+                    <span>나의 여행 펫로그(PETLOG)</span>
+                    <span style="font-size: 10px; font-weight: normal; color: #888;">http://jinwook857-eng.github.io/petlog</span>
+                </div>
+                <div class="gallery">
+                    <div class="photo"><img src="https://via.placeholder.com/200x150?text=PETLOG+IMAGE"><p style="font-size:11px; margin-top:5px;">나의 첫 여행</p></div>
+                    <div class="photo"><img src="https://via.placeholder.com/200x150?text=PETLOG+IMAGE"><p style="font-size:11px; margin-top:5px;">혼자여도 좋아</p></div>
+                </div>
+                <div class="voice-section">
+                    <h4 style="margin-bottom: 10px; color: #444;">오늘의 감정 녹음 🎤</h4>
+                    <button id="rec">기록 시작하기</button>
+                    <p id="status" style="font-size: 11px; color: #888; margin-top: 10px;">카메라 장치와 연동을 확인해 주세요.</p>
+                </div>
+            </div>
+            <div class="menu-tab">
+                <a href="#" class="tab">홈</a>
+                <a href="#" class="tab">사진첩</a>
+                <a href="#" class="tab">방명록</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('rec').onclick = function() {
+            alert('카메라의 음성 인식 기능을 활성화합니다!');
+        };
+    </script>
+</body>
+</html>
