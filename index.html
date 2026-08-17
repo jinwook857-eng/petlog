@@ -2,9 +2,10 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>PETLOG 미니홈피</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PETLOG - 나의 여행 기록</title>
     <style>
-        /* 싸이월드 도트 배경 */
+        /* Y2K 싸이월드 감성 배경 */
         body {
             background-color: #a3a3a3;
             background-image: radial-gradient(#cfcfcf 1px, transparent 1px);
@@ -14,143 +15,272 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            padding: 20px;
         }
 
-        /* 외부 회색 테두리 */
+        /* 미니홈피 외부 틀 */
         .outer-box {
             background-color: #b5d5d5;
-            border: 1px solid #76abab;
-            border-radius: 10px;
-            padding: 20px 10px 10px 25px;
-            width: 900px;
-            height: 550px;
+            border: 2px solid #76abab;
+            border-radius: 15px;
+            padding: 20px;
+            width: 100%;
+            max-width: 950px;
+            min-height: 600px;
             position: relative;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
             display: flex;
         }
 
-        /* 내부 흰색 점선 테두리 */
+        /* 내부 점선 틀 */
         .inner-box {
-            background-color: white;
-            border: 2px dashed #76abab;
+            background-color: #f0f0f0;
+            border: 2px dashed #99cccc;
             border-radius: 10px;
             width: 100%;
-            height: 100%;
             display: flex;
             padding: 15px;
+            gap: 15px;
         }
 
-        /* 왼쪽 프로필 섹션 */
+        /* 왼쪽 사이드바 */
         .left-section {
             width: 200px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            border-right: 1px solid #eee;
-            padding-right: 15px;
+            padding: 15px;
+            flex-shrink: 0;
         }
 
-        .today-count {
+        .counter {
             font-size: 10px;
-            margin-bottom: 10px;
+            color: #666;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+            width: 100%;
+            text-align: center;
         }
-        .today-count span:first-child { color: red; font-weight: bold; }
 
-        .profile-image-box {
+        .counter .red { color: #ff5577; font-weight: bold; font-size: 11px; }
+
+        .profile-img-box {
             width: 170px;
-            height: 150px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            height: 160px;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            margin-bottom: 15px;
             overflow: hidden;
+            background: #f9f9f9;
         }
-        .profile-image-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        .profile-text {
+        .profile-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-info {
             font-size: 11px;
             color: #666;
-            line-height: 1.5;
-            text-align: left;
-            width: 170px;
-            height: 100px;
-            overflow-y: auto;
-            margin-bottom: 10px;
+            text-align: center;
+            line-height: 1.6;
+            margin-bottom: 15px;
         }
 
         .profile-name {
             font-weight: bold;
             color: #3b87ab;
-            margin-bottom: 5px;
+            font-size: 12px;
+            margin-bottom: 10px;
         }
 
-        /* 오른쪽 메인 섹션 */
+        .connection-status {
+            width: 100%;
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 8px;
+            font-size: 10px;
+            text-align: center;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        .status-dot.online { background-color: #4caf50; }
+        .status-dot.offline { background-color: #ff6b6b; }
+
+        /* 오른쪽 메인 영역 */
         .right-section {
             flex: 1;
-            padding-left: 15px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
             display: flex;
             flex-direction: column;
+            padding: 15px;
+            position: relative;
+            overflow-y: auto;
+            max-height: 570px;
         }
 
-        .title-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            padding-bottom: 5px;
-            border-bottom: 1px solid #eee;
+        .main-header {
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
         }
 
         .main-title {
             font-size: 16px;
             font-weight: bold;
             color: #3b87ab;
+            margin: 0 0 5px 0;
         }
 
-        .bgm-player {
-            background-color: #eee;
-            border: 1px solid #ccc;
-            padding: 2px 10px;
+        .title-desc {
             font-size: 11px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
+            color: #999;
+            margin: 0;
         }
 
-        .content-box {
-            background-color: #f6f6f6;
-            flex: 1;
-            border-radius: 5px;
-            padding: 15px;
-            overflow-y: auto;
-        }
-
-        /* 미니룸 감성 */
-        .miniroom {
-            width: 100%;
-            height: 200px;
-            background: white;
-            border: 1px solid #ddd;
+        /* BGM 섹션 */
+        .bgm-section {
+            background: linear-gradient(135deg, #fff9e6 0%, #ffe6f0 100%);
+            border: 1px solid #ffe0b2;
+            border-radius: 8px;
+            padding: 12px;
             margin-bottom: 15px;
-            position: relative;
-            background-image: url('https://raw.githubusercontent.com/jinwook857-eng/petlog/main/miniroom_bg.png'); /* 배경있으면 좋음 */
-            background-size: cover;
             display: flex;
-            justify-content: center;
             align-items: center;
+            gap: 10px;
         }
 
-        /* 탭 버튼 (오른쪽 바깥) */
+        .bgm-icon { font-size: 14px; }
+
+        .bgm-info {
+            flex: 1;
+        }
+
+        .bgm-title { font-size: 12px; font-weight: bold; color: #3b87ab; }
+        .bgm-artist { font-size: 10px; color: #666; }
+
+        .bgm-btn {
+            background-color: #ffb3d9;
+            border: 1px solid #ff99cc;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .bgm-btn:hover { background-color: #ff99cc; }
+
+        /* 프로젝트 소개 섹션 */
+        .project-intro {
+            background: #f0f7ff;
+            border-left: 4px solid #3b87ab;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .intro-title {
+            font-weight: bold;
+            color: #3b87ab;
+            font-size: 12px;
+            margin-bottom: 8px;
+        }
+
+        .intro-text {
+            font-size: 11px;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .intro-quote {
+            font-size: 10px;
+            color: #3b87ab;
+            font-style: italic;
+            border-left: 2px solid #3b87ab;
+            padding-left: 10px;
+            margin: 8px 0;
+        }
+
+        .data-flow {
+            font-size: 10px;
+            background: white;
+            border: 1px dashed #3b87ab;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 8px;
+        }
+
+        .flow-title { font-weight: bold; color: #3b87ab; margin-bottom: 5px; }
+        .flow-item { color: #666; margin-bottom: 3px; }
+
+        /* 갤러리 섹션 */
+        .section-title {
+            color: #3b87ab;
+            font-weight: bold;
+            font-size: 12px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            border-left: 3px solid #3b87ab;
+            padding-left: 8px;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .photo-card {
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-caption {
+            padding: 8px;
+            font-size: 10px;
+            color: #666;
+            background: white;
+        }
+
+        /* 우측 탭 */
         .tabs {
             position: absolute;
-            right: -55px;
-            top: 50px;
+            right: -60px;
+            top: 80px;
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 3px;
         }
 
         .tab {
@@ -158,125 +288,224 @@
             height: 35px;
             background-color: #3b87ab;
             color: white;
-            border: 1px solid #296d8f;
+            border: 1px solid #2d6a8a;
+            border-left: none;
             border-radius: 0 5px 5px 0;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 11px;
-            cursor: pointer;
             text-decoration: none;
-        }
-
-        /* 버튼 감성 */
-        .btn-green {
-            background-color: #299971;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 3px;
             font-size: 11px;
+            font-weight: bold;
             cursor: pointer;
         }
 
-        .photo-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
+        .tab:hover { background-color: #2d6a8a; }
+        .tab.active { background-color: white; color: #3b87ab; }
 
-        .photo-card {
-            background: white;
-            border: 1px solid #ddd;
-            padding: 5px;
+        /* 로딩 상태 */
+        .loading {
             text-align: center;
+            color: #999;
+            font-size: 11px;
+            padding: 20px;
         }
 
-        .photo-card img { width: 100%; height: 120px; object-fit: cover; }
+        /* 반응형 */
+        @media (max-width: 768px) {
+            .outer-box {
+                flex-direction: column;
+                padding: 15px;
+            }
 
+            .inner-box {
+                flex-direction: column;
+            }
+
+            .left-section {
+                width: 100%;
+            }
+
+            .right-section {
+                max-height: none;
+            }
+
+            .tabs {
+                position: static;
+                flex-direction: row;
+                margin-top: 15px;
+                right: auto;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="outer-box">
         <div class="inner-box">
-            <!-- 왼쪽: 프로필 -->
+            <!-- 왼쪽 사이드바 -->
             <div class="left-section">
-                <div class="today-count">
-                    TODAY <span>48</span> | TOTAL <span>1520</span>
+                <div class="counter">
+                    TODAY <span class="red">1</span> | TOTAL 486
                 </div>
-                <div class="profile-image-box">
-                    <!-- 여기에 당신의 펫로그 카메라 사진을 넣으세요 -->
-                    <img src="https://aioni.jnu.ac.kr/api/download-file?filename=p_CHAT_01KZZ32Y58R5RBCB699318P879.jpg" alt="PETLOG">
+
+                <div class="profile-img-box">
+                    <img id="profile-pic" src="https://aioni.jnu.ac.kr/api/download-file?filename=p_CHAT_01KZZ32Y58R5RBCB699318P879.jpg" alt="PETLOG">
                 </div>
-                <div class="profile-text">
-                    혼자여도 외롭지 않게, 당신의 모든 여행을 기억합니다. <br><br>
-                    <b>[PETLOG 프로젝트]</b><br>
-                    강지완 팀<br>
-                    #Y2K #펫로그 #감성기록
+
+                <div class="profile-info">
+                    혼자여도 외롭지 않게..<br>
+                    나의 여행 기록, PETLOG.<br><br>
+                    <span style="font-size: 9px; color: #999;">
+                        그때 그 시절의 나를<br>
+                        다시 만나는 형식
+                    </span>
                 </div>
+
                 <div class="profile-name">강지완(^_^)v</div>
-                <select style="width: 170px; font-size: 11px;">
-                    <option>파도타기</option>
-                    <option>조원1 미니홈피</option>
-                    <option>조원2 미니홈피</option>
-                </select>
+
+                <div class="connection-status">
+                    <span class="status-dot offline" id="status-dot"></span>
+                    <span id="conn-status">카메라 확인 중...</span>
+                </div>
             </div>
 
-            <!-- 오른쪽: 메인 -->
+            <!-- 오른쪽 메인 영역 -->
             <div class="right-section">
-                <div class="title-bar">
-                    <div class="main-title">나의 여행 펫로그(PETLOG)...★</div>
-                    <div class="bgm-player">
-                        <span>♬ Freestyle - Y (Feat. 서후)</span>
-                        <audio id="bgm" loop>
-                            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3" type="audio/mpeg">
-                        </audio>
-                        <button onclick="document.getElementById('bgm').play()" style="font-size: 9px;">▶</button>
+                <div class="main-header">
+                    <h1 class="main-title">✨ 나의 여행 펫로그(PETLOG)</h1>
+                    <p class="title-desc">카메라로 담은 감정 기록 아카이브</p>
+                </div>
+
+                <!-- BGM 섹션 -->
+                <div class="bgm-section">
+                    <div class="bgm-icon">♬</div>
+                    <div class="bgm-info">
+                        <div class="bgm-title">볼빨간사춘기 - 여름아 부탁해</div>
+                        <div class="bgm-artist">여행의 감성을 담은 배경음</div>
+                    </div>
+                    <button class="bgm-btn" onclick="playBGM()">▶ 재생</button>
+                </div>
+
+                <!-- 프로젝트 설명 섹션 -->
+                <div class="project-intro">
+                    <div class="intro-title">📖 PETLOG란?</div>
+                    <div class="intro-text">
+                        혼자 여행하는 20대를 위한 감정 기록 카메라입니다. 
+                        Y2K 감성의 싸이월드 미니홈피 형식으로 당신의 모든 여행을 아카이브합니다.
+                    </div>
+                    <div class="intro-quote">
+                        "그때 그 시절의 나를 다시 만나는 형식이라서 씁니다."
+                    </div>
+
+                    <div class="data-flow">
+                        <div class="flow-title">📊 데이터 흐름</div>
+                        <div class="flow-item">
+                            <strong>[현재 시제품]</strong> 기록 → 홈페이지 입력 → 내 계정 전송
+                        </div>
+                        <div class="flow-item">
+                            <strong>[향후 양산품]</strong> 기록 → Wi-Fi 자동 업로드 → 미니홈피에 바로 쌓임
+                        </div>
                     </div>
                 </div>
 
-                <div class="content-box">
-                    <!-- 미니룸 영역 -->
-                    <div class="miniroom">
-                        <img src="https://aioni.jnu.ac.kr/api/download-file?filename=p_CHAT_01KZZ32Y58R5RBCB699318P879.jpg" style="height: 150px; border: 5px solid white; transform: rotate(-5deg); box-shadow: 2px 2px 5px rgba(0,0,0,0.2);">
-                        <div style="position: absolute; bottom: 10px; right: 10px; font-weight: bold; color: #3b87ab;">PETLOG 미니룸</div>
-                    </div>
-
-                    <!-- 최근 게시물 -->
-                    <div style="margin-top: 10px;">
-                        <div style="color: #3b87ab; font-weight: bold; margin-bottom: 10px; border-bottom: 1px solid #ccc; padding-bottom: 5px;">Updated Memories [2]</div>
-                        <div class="photo-grid">
-                            <div class="photo-card">
-                                <img src="https://aioni.jnu.ac.kr/api/download-file?filename=p_CHAT_01KZZ32Y58R5RBCB699318P879.jpg">
-                                <div>첫 번째 기록</div>
-                            </div>
-                            <div class="photo-card">
-                                <div style="height: 120px; background: #eee; display: flex; justify-content: center; align-items: center; color: #999;">연결 대기 중</div>
-                                <div>두 번째 기록</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 음성 메모 -->
-                    <div style="margin-top: 20px; padding: 10px; background: #fff; border: 1px solid #ddd;">
-                        <b style="color: #299971;">🎙️ 오늘의 감정 녹음</b>
-                        <div style="margin-top: 5px;">
-                            <button class="btn-green" onclick="alert('녹음 기능을 활성화합니다.')">녹음 시작</button>
-                            <span style="font-size: 11px; color: #999; margin-left: 10px;">카메라 장치와 연동 중...</span>
-                        </div>
-                    </div>
+                <!-- 갤러리 섹션 -->
+                <div class="section-title">📸 오늘의 기억들 (실시간 연동)</div>
+                <div class="photo-grid" id="photo-gallery">
+                    <div class="loading">갤러리를 불러오는 중...</div>
                 </div>
             </div>
         </div>
 
-        <!-- 오른쪽 탭 메뉴 -->
+        <!-- 우측 탭 -->
         <div class="tabs">
-            <a href="#" class="tab">홈</a>
-            <a href="#" class="tab" style="background-color: white; color: #3b87ab;">사진첩</a>
-            <a href="#" class="tab">방명록</a>
+            <a class="tab active">홈</a>
+            <a class="tab">사진첩</a>
+            <a class="tab">방명록</a>
         </div>
     </div>
+
+    <!-- BGM 오디오 -->
+    <audio id="bgm" loop style="display: none;">
+        <source src="bgm.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const ESP32_IP = "http://192.168.0.163";
+        let lastPhotoCount = 0;
+
+        // BGM 재생 함수
+        function playBGM() {
+            const audio = document.getElementById('bgm');
+            if (audio.paused) {
+                audio.play().catch(e => console.log("자동재생 차단됨. 사용자 클릭 필요."));
+            } else {
+                audio.pause();
+            }
+        }
+
+        // 카메라 연결 확인
+        async function checkConnection() {
+            try {
+                await fetch(`${ESP32_IP}/`, { mode: 'no-cors', timeout: 3000 });
+                document.getElementById('status-dot').classList.remove('offline');
+                document.getElementById('status-dot').classList.add('online');
+                document.getElementById('conn-status').textContent = "● 연결됨";
+                document.getElementById('conn-status').style.color = "#4caf50";
+            } catch (e) {
+                document.getElementById('status-dot').classList.remove('online');
+                document.getElementById('status-dot').classList.add('offline');
+                document.getElementById('conn-status').textContent = "○ 연결 대기";
+                document.getElementById('conn-status').style.color = "#ff6b6b";
+            }
+        }
+
+        // 갤러리 업데이트
+        async function updateGallery() {
+            try {
+                const res = await fetch(`${ESP32_IP}/list`);
+                const photos = await res.json();
+
+                if (photos.length !== lastPhotoCount) {
+                    const gallery = document.getElementById('photo-gallery');
+                    gallery.innerHTML = "";
+
+                    if (photos.length === 0) {
+                        gallery.innerHTML = '<div class="loading">아직 기록이 없습니다. 카메라로 첫 사진을 찍어보세요! 📸</div>';
+                        return;
+                    }
+
+                    photos.reverse().forEach((name, index) => {
+                        gallery.innerHTML += `
+                            <div class="photo-card">
+                                <img src="${ESP32_IP}/photo?name=${name}" alt="Memory" onerror="this.src='https://aioni.jnu.ac.kr/api/download-file?filename=p_CHAT_01KZZ32Y58R5RBCB699318P879.jpg'">
+                                <div class="photo-caption">Memory #${photos.length - index}</div>
+                            </div>`;
+                    });
+
+                    // 최신 사진 프로필에 반영
+                    if (photos.length > 0) {
+                        const latestUrl = `${ESP32_IP}/photo?name=${photos[0]}`;
+                        document.getElementById('profile-pic').src = latestUrl;
+                    }
+
+                    lastPhotoCount = photos.length;
+                }
+            } catch (e) {
+                console.log("ESP32 대기 중...");
+            }
+        }
+
+        // 3초마다 감시
+        setInterval(() => {
+            checkConnection();
+            updateGallery();
+        }, 3000);
+
+        // 초기 실행
+        checkConnection();
+        updateGallery();
+    </script>
 
 </body>
 </html>
