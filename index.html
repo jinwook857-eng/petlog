@@ -6,298 +6,129 @@
     <title>PETLOG - 개인 아카이브</title>
     <style>
         /* 싸이월드 Y2K 감성 배경 */
-        body {
-            background-color: #a3a3a3;
-            background-image: radial-gradient(#cfcfcf 1px, transparent 1px);
-            background-size: 3px 3px;
-            font-family: "돋움", dotum, sans-serif;
-            font-size: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-        }
-
-        /* 미니홈피 외부 틀 */
-        .outer-box {
-            background-color: #b5d5d5;
-            border: 1px solid #76abab;
-            border-radius: 15px;
-            padding: 20px 8px 8px 25px;
-            width: 900px;
-            height: 560px;
-            position: relative;
-            display: flex;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
-        }
-
-        /* 내부 점선 틀 */
-        .inner-box {
-            background-color: #f0f0f0;
-            border: 2px dashed white;
-            border-radius: 10px;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            padding: 10px;
-        }
-
-        /* 왼쪽 사이드바 (프로필) */
-        .left-section {
-            width: 200px;
-            height: 100%;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 15px 0;
-            margin-right: 8px;
-        }
-
+        body { background-color: #a3a3a3; background-image: radial-gradient(#cfcfcf 1px, transparent 1px); background-size: 3px 3px; font-family: "돋움", dotum, sans-serif; font-size: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .outer-box { background-color: #b5d5d5; border: 1px solid #76abab; border-radius: 15px; padding: 20px 8px 8px 25px; width: 900px; height: 560px; position: relative; display: flex; box-shadow: 5px 5px 15px rgba(0,0,0,0.2); }
+        .inner-box { background-color: #f0f0f0; border: 2px dashed white; border-radius: 10px; width: 100%; height: 100%; display: flex; padding: 10px; }
+        .left-section { width: 200px; height: 100%; background: white; border: 1px solid #ddd; border-radius: 10px; display: flex; flex-direction: column; align-items: center; padding: 15px 0; margin-right: 8px; }
         .today-count { font-size: 10px; margin-bottom: 10px; }
         .red { color: #ff0000; font-weight: bold; }
-
-        .profile-img-box {
-            width: 170px;
-            height: 160px;
-            border: 1px solid #eee;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            background-color: #f8f8f8;
-        }
-        .profile-img-box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .profile-msg {
-            width: 170px;
-            font-size: 11px;
-            color: #666;
-            line-height: 1.6;
-            padding: 10px 0;
-            border-top: 1px dashed #eee;
-            text-align: center;
-        }
-
+        .profile-img-box { width: 170px; height: 160px; border: 1px solid #eee; margin-bottom: 15px; overflow: hidden; }
+        .profile-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-msg { width: 170px; font-size: 11px; color: #666; line-height: 1.6; padding: 10px 0; border-top: 1px dashed #eee; text-align: center; }
         .profile-name { font-weight: bold; color: #3b87ab; font-size: 13px; margin-top: 5px; }
-
-        /* 오른쪽 메인 영역 */
-        .right-section {
-            flex: 1;
-            height: 100%;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            position: relative;
-        }
-
-        .main-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 5px;
-            margin-bottom: 15px;
-        }
-
+        .right-section { flex: 1; height: 100%; background: white; border: 1px solid #ddd; border-radius: 10px; display: flex; flex-direction: column; padding: 20px; position: relative; }
+        .main-header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 15px; }
         .main-title { font-size: 16px; font-weight: bold; color: #3b87ab; }
-
-        /* BGM 상단바 */
-        .bgm-bar {
-            background-color: #eee;
-            border: 1px solid #ccc;
-            padding: 5px 10px;
-            font-size: 11px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .content-area { flex: 1; overflow-y: auto; padding-right: 5px; }
-
-        /* 프로젝트 소개 박스 */
-        .intro-box {
-            background: #f9f9f9;
-            border: 1px solid #eee;
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
-        .philosophy {
-            font-style: italic;
-            color: #3b87ab;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-align: center;
-            font-size: 12px;
-        }
-
-        /* 데이터 흐름 박스 (요청하신 부분) */
-        .data-flow-box {
-            border: 1px dashed #3b87ab;
-            background-color: #f0f7fa;
-            padding: 10px;
-            margin-top: 10px;
-        }
-        .flow-title { font-weight: bold; color: #3b87ab; margin-bottom: 5px; display: flex; align-items: center; }
-
-        /* 갤러리 섹션 */
-        .section-title {
-            color: #3b87ab;
-            font-weight: bold;
-            font-size: 12px;
-            margin-bottom: 10px;
-            border-left: 3px solid #3b87ab;
-            padding-left: 8px;
-        }
-
-        .photo-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
+        .bgm-bar { background-color: #eee; border: 1px solid #ccc; padding: 5px 10px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .content-area { flex: 1; overflow-y: auto; }
+        .data-flow-box { border: 1px dashed #3b87ab; background-color: #f0f7fa; padding: 10px; margin-top: 10px; }
+        .flow-title { font-weight: bold; color: #3b87ab; margin-bottom: 5px; }
+        .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .photo-card { background: white; border: 1px solid #ddd; padding: 5px; text-align: center; }
         .photo-card img { width: 100%; height: 130px; object-fit: cover; border: 1px solid #eee; }
-
-        /* 우측 탭 */
-        .tabs {
-            position: absolute;
-            right: -58px;
-            top: 60px;
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-        }
-
-        .tab {
-            width: 55px;
-            height: 35px;
-            background-color: #3b87ab;
-            color: white;
-            border: 1px solid #28607a;
-            border-left: none;
-            border-radius: 0 5px 5px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-decoration: none;
-            font-size: 11px;
-        }
+        .tabs { position: absolute; right: -58px; top: 60px; display: flex; flex-direction: column; gap: 3px; }
+        .tab { width: 55px; height: 35px; background-color: #3b87ab; color: white; border: 1px solid #28607a; border-left: none; border-radius: 0 5px 5px 0; display: flex; justify-content: center; align-items: center; text-decoration: none; font-size: 11px; cursor: pointer; }
         .tab.active { background-color: white; color: #3b87ab; font-weight: bold; }
-
-        button {
-            background: #3b87ab;
-            color: white;
-            border: 1px solid #28607a;
-            padding: 5px 10px;
-            font-size: 11px;
-            cursor: pointer;
-            border-radius: 2px;
-        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        button { background: #3b87ab; color: white; border: 1px solid #28607a; padding: 3px 8px; font-size: 10px; cursor: pointer; }
     </style>
 </head>
 <body>
-
     <div class="outer-box">
         <div class="inner-box">
-            <!-- 왼쪽: 프로필 -->
             <div class="left-section">
                 <div class="today-count">TODAY <span class="red">1</span> | TOTAL 486</div>
-                <div class="profile-img-box">
-                    <!-- 깨진 이미지를 photo.jpg로 교체 -->
-                    <img src="photo.jpg" alt="PETLOG Profile">
-                </div>
-                <div class="profile-msg">
-                    혼자여도 외롭지 않게.. <br>나의 여행 기록, PETLOG.
-                </div>
+                <div class="profile-img-box"><img src="photo.jpg" alt="Profile"></div>
+                <div class="profile-msg">혼자여도 외롭지 않게.. <br>나의 여행 기록, PETLOG.</div>
                 <div class="profile-name">강지완(^_^)v</div>
-                <div style="margin-top: auto; font-size: 10px; color: #999;">#개인아카이브 #Y2K</div>
             </div>
-
-            <!-- 오른쪽: 메인 -->
             <div class="right-section">
                 <div class="main-header">
-                    <div class="main-title">나의 여행 펫로그(PETLOG)...★</div>
-                    <div style="font-size:10px; color:#999;">http://jinwook857-eng.github.io/petlog</div>
+                    <div class="main-title" id="page-title">나의 여행 펫로그(PETLOG)...★</div>
                 </div>
-
-                <!-- BGM 바 -->
                 <div class="bgm-bar">
-                    <div>♬ 볼빨간사춘기 - 여름아 부탁해 🌊</div>
-                    <div>
-                        <audio id="bgm" loop>
-                            <source src="bgm.mp3" type="audio/mpeg">
-                        </audio>
-                        <button onclick="document.getElementById('bgm').play()">▶ 재생</button>
-                        <button onclick="document.getElementById('bgm').pause()">⏸ 정지</button>
-                    </div>
+                    <div>♬ 볼빨간사춘기 - 여름아 부탁해</div>
+                    <audio id="bgm" loop><source src="bgm.mp3" type="audio/mpeg"></audio>
+                    <div><button onclick="document.getElementById('bgm').play()">▶</button> <button onclick="document.getElementById('bgm').pause()">⏸</button></div>
                 </div>
-
                 <div class="content-area">
-                    <!-- 철학 및 소개 섹션 -->
-                    <div class="intro-box">
-                        <div class="philosophy">
-                            "미니홈피는 남에게 보여주려고 쓰는 게 아니라,<br>
-                            그때 그 시절의 나를 다시 만나는 형식이라서 씁니다."
+                    <!-- 홈 탭 -->
+                    <div id="home-tab" class="tab-content active">
+                        <div style="text-align:center; padding:20px; background:#f9f9f9; border-radius:10px;">
+                            "그때 그 시절의 나를 다시 만나는 형식"
                         </div>
-                        
-                        <!-- 데이터 흐름 섹션 -->
                         <div class="data-flow-box">
                             <div class="flow-title">기억의 흐름</div>
-                            <div style="font-size: 11px; color: #555; line-height: 1.8;">
-                                <b>광주 출생 </b> 2004.01.01<br>
-                            </div>
+                            <div style="font-size: 11px;"><b>광주 출생</b> 2004.01.01</div>
                         </div>
                     </div>
-
-                    <!-- 사진첩 섹션 -->
-                    <div class="section-title">Updated Memories (Personal Archive)</div>
-                    <div class="photo-grid" id="photo-gallery">
-                        <div class="photo-card">
-                            <img src="photo.jpg">
-                            <div>나의 첫 기록</div>
+                    <!-- 사진첩 탭 -->
+                    <div id="album-tab" class="tab-content">
+                        <div class="photo-grid" id="photo-gallery">
+                            <p style="text-align:center; color:#999; grid-column: span 2;">사진을 불러오는 중...</p>
                         </div>
-                        <div class="photo-card">
-                            <div style="height:130px; background:#eee; display:flex; align-items:center; justify-content:center; color:#ccc;">기록 대기 중</div>
-                            <div>다음 여정</div>
-                        </div>
-                    </div>
-
-                    <!-- 음성 메모 섹션 -->
-                    <div style="margin-top: 20px;" class="section-title">Emotion Record</div>
-                    <div style="background:#f9f9f9; padding:15px; border:1px solid #ddd; border-radius:5px; text-align:center;">
-                        <span style="color:#666; font-size:11px;">카메라 장치와 연동하여 당시의 목소리를 보관합니다.</span><br><br>
-                        <button style="background:#299971; border-color:#1e7a5a;">🎙️ 음성 아카이브 확인</button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- 우측 탭 메뉴 (개인용이므로 홈/사진첩 위주) -->
         <div class="tabs">
-            <a href="#" class="tab active">홈</a>
-            <a href="#" class="tab">사진첩</a>
-            <a href="#" class="tab">기록</a>
+            <div class="tab active" id="tab-home" onclick="switchTab('home')">홈</div>
+            <div class="tab" id="tab-album" onclick="switchTab('album')">사진첩</div>
         </div>
     </div>
 
-    <!-- Firebase 설정은 나중에 설정값을 받으면 여기에 추가할 예정입니다 -->
-    <script>
-        console.log("PETLOG 개인 아카이브 로드 완료");
+    <!-- Firebase 연결 및 로직 -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCV8ZmL3W19IBFNivnNFpJpNX_dX-ayg",
+            authDomain: "petlog-camera.firebaseapp.com",
+            projectId: "petlog-camera",
+            storageBucket: "petlog-camera.firebasestorage.app",
+            messagingSenderId: "354143104664",
+            appId: "1:354143104664:web:b2f24fb605d68e8ee7aaed",
+            measurementId: "G-RY4J9VPC76"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // 탭 전환 기능
+        window.switchTab = (type) => {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            if(type === 'home') {
+                document.getElementById('home-tab').classList.add('active');
+                document.getElementById('tab-home').classList.add('active');
+                document.getElementById('page-title').innerText = "나의 여행 펫로그(PETLOG)...★";
+            } else {
+                document.getElementById('album-tab').classList.add('active');
+                document.getElementById('tab-album').classList.add('active');
+                document.getElementById('page-title').innerText = "추억 사진첩...📷";
+            }
+        };
+
+        // Firebase 데이터 읽기
+        const photosRef = ref(db, 'photos');
+        onValue(photosRef, (snapshot) => {
+            const data = snapshot.val();
+            const gallery = document.getElementById('photo-gallery');
+            if (data) {
+                gallery.innerHTML = "";
+                Object.values(data).reverse().forEach(photo => {
+                    gallery.innerHTML += `
+                        <div class="photo-card">
+                            <img src="${photo.url}">
+                            <div style="font-size:10px; color:#666; margin-top:5px;">${photo.time}</div>
+                        </div>`;
+                });
+            } else {
+                gallery.innerHTML = '<p style="text-align:center; color:#999; grid-column: span 2;">아직 기록된 사진이 없습니다.</p>';
+            }
+        });
     </script>
 </body>
 </html>
