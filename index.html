@@ -5,50 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PETLOG - 개인 아카이브</title>
     <style>
-        /* 싸이월드 Y2K 감성 배경 */
         body { background-color: #a3a3a3; background-image: radial-gradient(#cfcfcf 1px, transparent 1px); background-size: 3px 3px; font-family: "돋움", dotum, sans-serif; font-size: 12px; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
         .outer-box { background-color: #b5d5d5; border: 1px solid #76abab; border-radius: 15px; padding: 20px 8px 8px 25px; width: 900px; height: 560px; position: relative; display: flex; box-shadow: 5px 5px 15px rgba(0,0,0,0.2); }
         .inner-box { background-color: #f0f0f0; border: 2px dashed white; border-radius: 10px; width: 100%; height: 100%; display: flex; padding: 10px; }
-        
-        /* 왼쪽 사이드바 */
         .left-section { width: 200px; height: 100%; background: white; border: 1px solid #ddd; border-radius: 10px; display: flex; flex-direction: column; align-items: center; padding: 15px 0; margin-right: 8px; }
-        .today-count { font-size: 10px; margin-bottom: 10px; }
-        .red { color: #ff0000; font-weight: bold; }
-        .profile-img-box { width: 170px; height: 160px; border: 1px solid #eee; margin-bottom: 15px; overflow: hidden; }
+        .profile-img-box { width: 170px; height: 160px; border: 1px solid #eee; margin-bottom: 15px; overflow: hidden; background: #eee; }
         .profile-img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .profile-msg { width: 170px; font-size: 11px; color: #666; line-height: 1.6; padding: 10px 0; border-top: 1px dashed #eee; text-align: center; }
-        .profile-name { font-weight: bold; color: #3b87ab; font-size: 13px; margin-top: 5px; }
-
-        /* 오른쪽 메인 영역 */
         .right-section { flex: 1; height: 100%; background: white; border: 1px solid #ddd; border-radius: 10px; display: flex; flex-direction: column; padding: 20px; position: relative; }
         .main-header { display: flex; justify-content: space-between; align-items: flex-end; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 15px; }
         .main-title { font-size: 16px; font-weight: bold; color: #3b87ab; }
         .bgm-bar { background-color: #eee; border: 1px solid #ccc; padding: 5px 10px; font-size: 11px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        .content-area { flex: 1; overflow-y: auto; padding-right: 5px; }
-
-        /* 홈 탭 내부 스타일 */
+        .content-area { flex: 1; overflow-y: auto; }
         .intro-quote { text-align:center; padding:15px; background:#f9f9f9; border-radius:10px; font-style: italic; margin-bottom: 15px; color: #555; }
-        .data-flow-box { border: 1px dashed #3b87ab; background-color: #f0f7fa; padding: 10px; margin-bottom: 20px; }
-        .flow-title { font-weight: bold; color: #3b87ab; margin-bottom: 5px; font-size: 12px; }
-
-        /* 당신의 마지막 기억 섹션 */
         .last-memory-section { margin-top: 20px; }
         .memory-title { color: #3b87ab; font-weight: bold; margin-bottom: 10px; font-size: 12px; border-left: 3px solid #3b87ab; padding-left: 8px; }
         .memory-container { display: flex; gap: 15px; justify-content: space-around; }
-        .memory-box { width: 45%; height: 150px; border: 2px dashed #ccc; background-color: #fafafa; display: flex; align-items: center; justify-content: center; color: #aaa; border-radius: 5px; flex-direction: column; }
-        .memory-box img { width: 100%; height: 100%; object-fit: cover; border-radius: 3px; display: none; } /* 사진 들어오면 보임 */
-
-        /* 사진첩 그리드 */
+        .memory-box { width: 45%; height: 150px; border: 2px dashed #ccc; background-color: #fafafa; position: relative; overflow: hidden; border-radius: 5px; display: flex; align-items: center; justify-content: center; }
+        .memory-box img { width: 100%; height: 100%; object-fit: cover; }
         .photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
         .photo-card { background: white; border: 1px solid #ddd; padding: 5px; text-align: center; }
-        .photo-card img { width: 100%; height: 130px; object-fit: cover; border: 1px solid #eee; }
-
-        /* 우측 탭 버튼 */
+        .photo-card img { width: 100%; height: 130px; object-fit: cover; }
         .tabs { position: absolute; right: -58px; top: 60px; display: flex; flex-direction: column; gap: 3px; }
-        .tab { width: 55px; height: 35px; background-color: #3b87ab; color: white; border: 1px solid #28607a; border-left: none; border-radius: 0 5px 5px 0; display: flex; justify-content: center; align-items: center; text-decoration: none; font-size: 11px; cursor: pointer; }
+        .tab { width: 55px; height: 35px; background-color: #3b87ab; color: white; border: 1px solid #28607a; border-left: none; border-radius: 0 5px 5px 0; display: flex; justify-content: center; align-items: center; font-size: 11px; cursor: pointer; }
         .tab.active { background-color: white; color: #3b87ab; font-weight: bold; }
         .tab.deco { background-color: #e67e22; border-color: #d35400; margin-top: 5px; }
-        
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         button { background: #3b87ab; color: white; border: 1px solid #28607a; padding: 3px 8px; font-size: 10px; cursor: pointer; }
@@ -57,128 +37,78 @@
 <body>
     <div class="outer-box">
         <div class="inner-box">
-            <!-- 왼쪽 프로필 영역 -->
             <div class="left-section">
-                <div class="today-count">TODAY <span class="red">1</span> | TOTAL 486</div>
-                <div class="profile-img-box"><img src="photo.jpg" alt="Profile"></div>
-                <div class="profile-msg">혼자여도 외롭지 않게.. <br>나의 여행 기록, PETLOG.</div>
-                <div class="profile-name">강지완(^_^)v</div>
-                <div style="margin-top:20px; font-size:11px; color:#3b87ab; font-weight:bold;">일촌 12명</div>
+                <div style="font-size:10px; margin-bottom:10px;">TODAY <span style="color:red; font-weight:bold;">1</span> | TOTAL 486</div>
+                <div class="profile-img-box">
+                    <!-- 깃허브에 올린 photo.jpg 사용 -->
+                    <img src="./photo.jpg" alt="Profile" onerror="this.src='https://via.placeholder.com/170x160'">
+                </div>
+                <div style="width:170px; font-size:11px; color:#666; text-align:center; padding-top:10px; border-top:1px dashed #eee;">혼자여도 외롭지 않게.. <br>나의 여행 기록, PETLOG.</div>
+                <div style="font-weight:bold; color:#3b87ab; font-size:13px; margin-top:5px;">강지완(^_^)v</div>
             </div>
 
-            <!-- 오른쪽 메인 영역 -->
             <div class="right-section">
-                <div class="main-header">
-                    <div class="main-title" id="page-title">나의 여행 펫로그(PETLOG)...★</div>
-                </div>
-
+                <div class="main-header"><div class="main-title" id="page-title">나의 여행 펫로그(PETLOG)...★</div></div>
                 <div class="bgm-bar">
                     <div>♬ 볼빨간사춘기 - 여름아 부탁해</div>
                     <audio id="bgm" loop><source src="bgm.mp3" type="audio/mpeg"></audio>
                     <div><button onclick="document.getElementById('bgm').play()">▶</button> <button onclick="document.getElementById('bgm').pause()">⏸</button></div>
                 </div>
-
                 <div class="content-area">
-                    <!-- 홈 탭 -->
                     <div id="home-tab" class="tab-content active">
-                        <div class="intro-quote">
-                            "그때 그 시절의 나를 다시 만나는 저장소"
-                        </div>
-                        <div class="data-flow-box">
-                            <div class="flow-title">📌 기억의 흐름</div>
-                            <div style="font-size: 11px; line-height: 1.8;">
-                                <b>🎂 서울 출생</b> | 1999.01.01<br>
-                                <b>📸 펫로그 프로젝트</b> | 2024.12
-                            </div>
-                        </div>
-
-                        <!-- 당신의 마지막 기억 섹션 -->
+                        <div class="intro-quote">"그때 그 시절의 나를 다시 만나는 형식"</div>
                         <div class="last-memory-section">
                             <div class="memory-title">당신의 마지막 기억</div>
                             <div class="memory-container">
-                                <div class="memory-box" id="recent-1">
-                                    <span>비어 있음</span>
+                                <div class="memory-box">
+                                    <!-- 깃허브에 올린 꽃 사진 -->
+                                    <img src="./memoryFiles1.jpg">
                                 </div>
-                                <div class="memory-box" id="recent-2">
-                                    <span>비어 있음</span>
+                                <div class="memory-box">
+                                    <!-- 깃허브에 올린 스쿠버 사진 -->
+                                    <img src="./memoryFiles2.jpg">
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <!-- 사진첩 탭 -->
                     <div id="album-tab" class="tab-content">
-                        <div class="photo-grid" id="photo-gallery">
-                            <p style="text-align:center; color:#999; grid-column: span 2;">추억을 불러오는 중...</p>
-                        </div>
+                        <div class="photo-grid" id="photo-gallery"></div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- 우측 탭 메뉴 -->
         <div class="tabs">
             <div class="tab active" id="tab-home" onclick="switchTab('home')">홈</div>
             <div class="tab" id="tab-album" onclick="switchTab('album')">사진첩</div>
-            <div class="tab deco" onclick="alert('꾸미기 기능은 준비 중입니다!')">꾸미기</div>
+            <div class="tab deco" onclick="alert('꾸미기 기능 준비 중!')">꾸미기</div>
         </div>
     </div>
 
-    <!-- Supabase 연동 스크립트 -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
+        // 사진첩 탭은 여전히 실시간성을 위해 수파베이스 사용
         const SUPABASE_URL = 'https://oufwpsalnoegeumlsum.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im91Zm93cHNhbG5vZWdld21sc3VtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY5NDMyMzEsImV4cCI6MjEwMjUxOTIzMX0.imgcjToUmrNMzv3Zf9G-srYhtyi5Sm811pSmANo2wkU';
-        
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        async function loadMemories() {
+        async function loadAlbum() {
             const gallery = document.getElementById('photo-gallery');
-            const recent1 = document.getElementById('recent-1');
-            const recent2 = document.getElementById('recent-2');
-
-            try {
-                const { data, error } = await supabaseClient
-                    .storage
-                    .from('photos')
-                    .list('', { limit: 100, sortBy: { column: 'name', order: 'desc' } });
-
-                if (error) throw error;
-
-                // 메인 사진첩: 가져온 모든 사진 표시
-                if (data && data.length > 0) {
-                    gallery.innerHTML = "";
-                    data.forEach(file => {
-                        const { data: urlData } = supabaseClient.storage.from('photos').getPublicUrl(file.name);
-                        gallery.innerHTML += `
-                            <div class="photo-card">
-                                <img src="${urlData.publicUrl}">
-                                <div style="font-size:10px; color:#666; margin-top:5px;">${file.name}</div>
-                            </div>`;
+            const buckets = ['photos', 'PHOTO2', 'PHOTO3'];
+            let html = "";
+            for (const b of buckets) {
+                const { data } = await supabaseClient.storage.from(b).list();
+                if (data) {
+                    data.forEach(f => {
+                        if (f.name !== '.emptyFolderPlaceholder') {
+                            const url = `${SUPABASE_URL}/storage/v1/object/public/${b}/${f.name}`;
+                            html += `<div class="photo-card"><img src="${url}"><div>${f.name}</div></div>`;
+                        }
                     });
-                } else {
-                    gallery.innerHTML = '<p style="text-align:center; color:#999; grid-column: span 2;">아직 기록이 없습니다.</p>';
                 }
-
-                // 당신의 마지막 기억: 직접 지정한 두 파일 꽂기
-                const memoryFiles = ["800.jpg", "Campsis_grandiflora_09_7_3.jpg"];
-
-                if (memoryFiles[0]) {
-                    const url1 = supabaseClient.storage.from('photos').getPublicUrl(memoryFiles[0]).data.publicUrl;
-                    recent1.innerHTML = `<img src="${url1}" style="display:block;">`;
-                }
-                if (memoryFiles[1]) {
-                    const url2 = supabaseClient.storage.from('photos').getPublicUrl(memoryFiles[1]).data.publicUrl;
-                    recent2.innerHTML = `<img src="${url2}" style="display:block;">`;
-                }
-
-            } catch (e) {
-                console.error("서버 연결 에러:", e);
-                gallery.innerHTML = '<p style="text-align:center; color:red; grid-column: span 2;">연결 실패</p>';
             }
+            gallery.innerHTML = html || '<p style="text-align:center; color:#999; grid-column:span 2;">기록이 없습니다.</p>';
         }
 
-        // 탭 전환 기능
         window.switchTab = (type) => {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
@@ -190,11 +120,9 @@
                 document.getElementById('album-tab').classList.add('active');
                 document.getElementById('tab-album').classList.add('active');
                 document.getElementById('page-title').innerText = "추억 사진첩...📷";
+                loadAlbum();
             }
         };
-
-        // 초기 로드
-        loadMemories();
     </script>
 </body>
 </html>
